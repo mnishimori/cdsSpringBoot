@@ -1,37 +1,36 @@
-package com.github.mnishimori.cliente;
+package com.github.mnishimori.domain.produto;
 
-import java.util.Set;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.github.mnishimori.pedido.Pedido;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "cliente")
-public class Cliente {
-	
+@Table(name = "produto")
+public class Produto {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
 	
 	@Column
-	private String nome;
+	private String descricao;
 	
-	@OneToMany(mappedBy = "cliente")
-	private Set<Pedido> pedidos;
-
+	@Column(name = "preco_unitario")
+	private BigDecimal precoUnitario;
+	
 }

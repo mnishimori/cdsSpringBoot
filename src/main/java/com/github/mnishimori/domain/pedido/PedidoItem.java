@@ -1,4 +1,4 @@
-package com.github.mnishimori.pedido;
+package com.github.mnishimori.domain.pedido;
 
 import java.math.BigDecimal;
 
@@ -11,14 +11,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.github.mnishimori.produto.Produto;
+import com.github.mnishimori.domain.produto.Produto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "item_pedido")

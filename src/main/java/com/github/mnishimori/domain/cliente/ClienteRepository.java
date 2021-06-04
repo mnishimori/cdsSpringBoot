@@ -1,4 +1,4 @@
-package com.github.mnishimori.cliente;
+package com.github.mnishimori.domain.cliente;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	List<Cliente> findByNomeLikeIgnoreCase(String nome);
 	
-	@Query("select c from cliente c left join fetch c.pedidos p where c.id = :id ")
+	@Query("select c from Cliente c left join fetch c.pedidos p where c.id = :id ")
 	Cliente findClienteFetchPedidos(@Param("id") Integer id);
 
 }

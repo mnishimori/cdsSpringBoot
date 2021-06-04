@@ -1,4 +1,4 @@
-package com.github.mnishimori.produto;
+package com.github.mnishimori.domain.produto;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

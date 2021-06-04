@@ -1,4 +1,4 @@
-package com.github.mnishimori.cliente;
+package com.github.mnishimori.domain.cliente;
 
 import java.util.List;
 

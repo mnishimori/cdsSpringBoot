@@ -1,4 +1,4 @@
-package com.github.mnishimori.pedido;
+package com.github.mnishimori.domain.pedido;
 
 import java.util.List;
 

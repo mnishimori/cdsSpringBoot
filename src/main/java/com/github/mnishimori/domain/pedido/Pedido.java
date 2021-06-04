@@ -1,4 +1,4 @@
-package com.github.mnishimori.pedido;
+package com.github.mnishimori.domain.pedido;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,14 +16,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.github.mnishimori.cliente.Cliente;
+import com.github.mnishimori.domain.cliente.Cliente;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "pedido")
