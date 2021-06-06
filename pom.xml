@@ -21,6 +21,7 @@
 		<apache-commons.version>3.11</apache-commons.version>
 		<modelmapper.version>2.3.0</modelmapper.version>
 		<projectlombok.version>1.18.16</projectlombok.version>
+		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
 		<spring-fox.version>2.9.2</spring-fox.version>
 		<squiggly.version>1.3.18</squiggly.version>
 	</properties>
@@ -68,10 +69,17 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${apache-commons.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>${hibernate-validator.version}</version>
 		</dependency>
 		
 	</dependencies>

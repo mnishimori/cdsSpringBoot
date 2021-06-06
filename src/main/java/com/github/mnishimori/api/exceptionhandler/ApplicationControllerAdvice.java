@@ -3,6 +3,8 @@ package com.github.mnishimori.api.exceptionhandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.ConstraintViolationException;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.github.mnishimori.domain.exception.AlreadyRegisteredEntityException;
-import com.github.mnishimori.domain.exception.UnregisteredException;
 import com.github.mnishimori.domain.exception.BusinessException;
+import com.github.mnishimori.domain.exception.UnregisteredException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler {
@@ -35,6 +37,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	@Autowired
 	private MessageSource messageSource;
 
+	
 	
 	@ExceptionHandler({ MaxUploadSizeExceededException.class })
 	public ResponseEntity<Object> handleMaxUploadSizeExceeded(MaxUploadSizeExceededException ex, WebRequest request) {
@@ -132,6 +135,22 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 				status, request);
 	}
 
+	
+	@ExceptionHandler({ ConstraintViolationException.class })
+	public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex,
+			WebRequest request) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		List<String> errors = ex.getConstraintViolations()
+				.stream()
+				.map(e -> e.getMessage())
+				.collect(Collectors.toList());
+		
+		return handleExceptionInternal(ex, errors.stream().collect(Collectors.joining(", ")), 
+				new HttpHeaders(), status, request);
+	}
+	
 	
 	public ResponseEntity<Object> handleValidationInternal(Exception ex, BindingResult bindingResult,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

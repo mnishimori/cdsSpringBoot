@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,9 +29,10 @@ public class BaseEntity {
 	@Column
 	private Boolean del;
 	
+	@NotNull(message = "Informe o usuário que está realizando a operação")
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
-	private User user;
+	private User registrationUser;
 	
 	@CreationTimestamp
 	@Column(name = "dt_cadastro")

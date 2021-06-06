@@ -2,6 +2,8 @@ package com.github.mnishimori.api.controller.customer;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +34,7 @@ public class CustomerController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CustomerDto save(@RequestBody CustomerDto customerDto) {
+	public CustomerDto save(@RequestBody @Valid CustomerDto customerDto) {
 		
 		Customer customer = this.assembler.toDomainObjectFromDto(customerDto);
 		
@@ -43,21 +45,21 @@ public class CustomerController {
 	@GetMapping
 	public List<Customer> list() {
 		
-		return customerService.list();
+		return this.customerService.list();
 	}
 	
 	
 	@GetMapping("/{id}")
 	public Customer findCustomerById(@PathVariable Integer id) {
 		
-		return customerService.findById(id);
+		return this.customerService.findById(id);
 	}
 	
 	
 	@GetMapping("/pesquisa")
 	public List<Customer> searchCustomer(Customer customer) {
 		
-		return customerService.search(customer);
+		return this.customerService.search(customer);
 	}
 	
 	
@@ -65,7 +67,7 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.OK)
 	public Customer update(@PathVariable Integer id, @RequestBody Customer customer) {
 		
-		return customerService.update(id, customer);
+		return this.customerService.update(id, customer);
 	}
 	
 	
@@ -73,7 +75,7 @@ public class CustomerController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
 		
-		customerService.delete(id);
+		this.customerService.delete(id);
 	}
 
 }

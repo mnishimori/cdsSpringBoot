@@ -94,7 +94,7 @@ public abstract class BaseEntityService<T> {
 			
 			entityToSave = this.findById(entityToPrepare.getId());
 		
-			BeanUtils.copyProperties(entityToPrepare, entityToSave, "user", "registrationDate");
+			BeanUtils.copyProperties(entityToPrepare, entityToSave, "registrationUser", "registrationDate");
 			
 		}
 		
@@ -104,7 +104,8 @@ public abstract class BaseEntityService<T> {
 
 	private void identifyRegistrationUser(BaseEntity entityToPrepare, T entityToSave) {
 		
-		((BaseEntity) entityToSave).setUser(userService.findUserByEmail(entityToPrepare.getUser().getEmail()));
+		((BaseEntity) entityToSave).setRegistrationUser(
+				userService.findUserByEmail(entityToPrepare.getRegistrationUser().getEmail()));
 	}
 	
 	
@@ -112,16 +113,13 @@ public abstract class BaseEntityService<T> {
 		
 		if (entity == null) {
 			throw new BusinessException("Entidade " + getClass() + " inválida!");
-		} else {
-			if (((BaseEntity) entity).isNewEntity()) {
-				if (((BaseEntity) entity).getUser() == null) {
-					throw new BusinessException("Informe o usuário de cadastro!");
-				} else {
-					if (((BaseEntity) entity).getUser().getEmail() == null || ((BaseEntity) entity).getUser().getEmail().trim().isEmpty()) {
-						throw new BusinessException("Informe o usuário de cadastro!");
-					}
-				}
-			}
-		}
+		} /*
+			 * else { if (((BaseEntity) entity).isNewEntity()) { if (((BaseEntity)
+			 * entity).getRegistrationUser() == null) { throw new
+			 * BusinessException("Informe o usuário de cadastro!"); } else { if
+			 * (((BaseEntity) entity).getRegistrationUser().getEmail() == null ||
+			 * ((BaseEntity) entity).getRegistrationUser().getEmail().trim().isEmpty()) {
+			 * throw new BusinessException("Informe o usuário de cadastro!"); } } } }
+			 */
 	}
 }

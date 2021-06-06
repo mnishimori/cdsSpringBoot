@@ -33,7 +33,7 @@ public class UserController {
 		
 		User user = this.assembler.toDomainObjectFromDto(userDto);
 		
-		return this.assembler.toDtoFromModel(userService.save(user));
+		return this.assembler.toDtoFromModel(this.userService.save(user));
 	}
 	
 	
