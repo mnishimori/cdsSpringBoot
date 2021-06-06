@@ -65,7 +65,7 @@ public class CustomerController {
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Customer update(@PathVariable Integer id, @RequestBody Customer customer) {
+	public Customer update(@PathVariable Integer id, @RequestBody @Valid Customer customer) {
 		
 		return this.customerService.update(id, customer);
 	}

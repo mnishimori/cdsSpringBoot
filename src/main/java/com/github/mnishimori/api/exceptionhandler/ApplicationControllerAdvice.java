@@ -36,18 +36,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 
 	@Autowired
 	private MessageSource messageSource;
-
 	
-	
-	@ExceptionHandler({ MaxUploadSizeExceededException.class })
-	public ResponseEntity<Object> handleMaxUploadSizeExceeded(MaxUploadSizeExceededException ex, WebRequest request) {
-		HttpStatus status = HttpStatus.PAYLOAD_TOO_LARGE;
-		
-		String detail = String.format("O tamanho do arquivo que você está tentando fazer upload excedeu o tamanho máximo permitido de 10MB.", 
-	            ex.getMessage());
-		
-		return handleExceptionInternal(ex, detail, new HttpHeaders(), status, request);
-	}
 	
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(
@@ -111,6 +100,17 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 		
 		return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), 
 				status, request);
+	}
+
+	
+	@ExceptionHandler({ MaxUploadSizeExceededException.class })
+	public ResponseEntity<Object> handleMaxUploadSizeExceeded(MaxUploadSizeExceededException ex, WebRequest request) {
+		HttpStatus status = HttpStatus.PAYLOAD_TOO_LARGE;
+		
+		String detail = String.format("O tamanho do arquivo que você está tentando fazer upload excedeu o tamanho máximo permitido de 10MB.", 
+	            ex.getMessage());
+		
+		return handleExceptionInternal(ex, detail, new HttpHeaders(), status, request);
 	}
 
 	

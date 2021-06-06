@@ -113,13 +113,17 @@ public abstract class BaseEntityService<T> {
 		
 		if (entity == null) {
 			throw new BusinessException("Entidade " + getClass() + " inválida!");
-		} /*
-			 * else { if (((BaseEntity) entity).isNewEntity()) { if (((BaseEntity)
-			 * entity).getRegistrationUser() == null) { throw new
-			 * BusinessException("Informe o usuário de cadastro!"); } else { if
-			 * (((BaseEntity) entity).getRegistrationUser().getEmail() == null ||
-			 * ((BaseEntity) entity).getRegistrationUser().getEmail().trim().isEmpty()) {
-			 * throw new BusinessException("Informe o usuário de cadastro!"); } } } }
-			 */
+		} else {
+			if (((BaseEntity) entity).isNewEntity()) {
+				if (((BaseEntity) entity).getRegistrationUser() == null) {
+					throw new BusinessException("Informe o usuário de cadastro!");
+				} else {
+					if (((BaseEntity) entity).getRegistrationUser().getEmail() == null
+							|| ((BaseEntity) entity).getRegistrationUser().getEmail().trim().isEmpty()) {
+						throw new BusinessException("Informe o usuário de cadastro!");
+					}
+				}
+			}
+		}
 	}
 }
