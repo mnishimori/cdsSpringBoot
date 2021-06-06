@@ -15,6 +15,6 @@ public class UserDto {
 	
 	private String email;
 	
-	private Integer userId;
+	private UserDto registrationUser;
 
 }

@@ -34,7 +34,7 @@ public class User {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
-	private User user;
+	private User registrationUser;
 	
 	@CreationTimestamp
 	@Column(name = "dt_cadastro")
@@ -43,10 +43,10 @@ public class User {
 	@Column
 	private String name;
 	
-	@Column(unique = true)
+	@Column
 	private String cpf;
 	
-	@Column(unique = true)
+	@Column
 	private String email;
 	
 	@Column
