@@ -1,18 +1,13 @@
 package com.github.mnishimori.domain.product;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.github.mnishimori.domain.exception.UnregisteredException;
+import com.github.mnishimori.domain.base.BaseEntityService;
 
 @Service
-public class ProductService {
-	
+public class ProductService extends BaseEntityService<Product>{
+
+	/*
 	@Autowired
 	private ProductRepository repository;
 	
@@ -64,5 +59,5 @@ public class ProductService {
 		
 		repository.delete(produto);
 	}
-
+	*/
 }
