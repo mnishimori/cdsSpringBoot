@@ -33,6 +33,9 @@ public class Cliente {
 	@Column
 	private String nome;
 	
+	@Column
+	private String cpf;
+	
 	@OneToMany(mappedBy = "cliente")
 	private Set<Pedido> pedidos;
 

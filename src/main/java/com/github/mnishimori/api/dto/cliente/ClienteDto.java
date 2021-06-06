@@ -1,4 +1,4 @@
-package com.github.mnishimori.api.dto;
+package com.github.mnishimori.api.dto.cliente;
 
 import lombok.Getter;
 import lombok.Setter;

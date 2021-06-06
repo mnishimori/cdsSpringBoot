@@ -1,4 +1,4 @@
-package com.github.mnishimori;
+package com.github.mnishimori.core.configuration;
 
 import org.springframework.context.annotation.Configuration;
 
