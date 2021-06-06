@@ -25,9 +25,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.github.mnishimori.domain.exception.EntidadeJaCadastradaException;
-import com.github.mnishimori.domain.exception.EntidadeNaoEncontradaException;
-import com.github.mnishimori.domain.exception.NegocioException;
+import com.github.mnishimori.domain.exception.AlreadyRegisteredEntityException;
+import com.github.mnishimori.domain.exception.UnregisteredException;
+import com.github.mnishimori.domain.exception.BusinessException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler {
@@ -100,8 +100,8 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	}
 
 	
-	@ExceptionHandler(NegocioException.class)
-	public ResponseEntity<?> catchNegocioException(NegocioException e, 
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<?> catchNegocioException(BusinessException e, 
 			WebRequest request){
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -111,8 +111,8 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	}
 
 	
-	@ExceptionHandler(EntidadeJaCadastradaException.class)
-	public ResponseEntity<?> catchEntityAlreadySavedException(EntidadeJaCadastradaException e, 
+	@ExceptionHandler(AlreadyRegisteredEntityException.class)
+	public ResponseEntity<?> catchEntityAlreadySavedException(AlreadyRegisteredEntityException e, 
 			WebRequest request){
 		
 		HttpStatus status = HttpStatus.CONFLICT;
@@ -122,8 +122,8 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	}
 
 	
-	@ExceptionHandler(EntidadeNaoEncontradaException.class)
-	public ResponseEntity<?> catchEntityNotFoundException(EntidadeNaoEncontradaException e, 
+	@ExceptionHandler(UnregisteredException.class)
+	public ResponseEntity<?> catchEntityNotFoundException(UnregisteredException e, 
 			WebRequest request){
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
