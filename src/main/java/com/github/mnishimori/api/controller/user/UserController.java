@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.mnishimori.api.assembler.UserDtoAssembler;
+import com.github.mnishimori.api.dto.user.UserDto;
 import com.github.mnishimori.domain.user.User;
 import com.github.mnishimori.domain.user.UserService;
 
@@ -21,19 +23,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private UserDtoAssembler assembler;
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public User save(@RequestBody User user) {
+	public UserDto save(@RequestBody UserDto userDto) {
 		
-		return userService.save(user);
+		User user = this.assembler.toDomainObjectFromDto(userDto);
+		
+		return this.assembler.toDtoFromModel(userService.save(user));
 	}
 	
 	
 	@GetMapping
-	public List<User> list(){
+	public List<UserDto> list(){
 		
-		return userService.list();
+		return this.assembler.toCollectionDtoFromModel(this.userService.list());
 	}
 
 }

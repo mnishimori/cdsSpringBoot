@@ -1,6 +1,8 @@
-package com.github.mnishimori.domain.user;
+package com.github.mnishimori.domain.pedido;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,58 +11,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.github.mnishimori.domain.cliente.Cliente;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "pedido")
+public class Pedido {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer id;
 	
-	@Column
-	private Boolean del;
-	
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private User user;
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	
 	@CreationTimestamp
-	@Column(name = "dt_cadastro")
-	private LocalDateTime registrationDate;
+	@Column(name = "data_pedido")
+	private LocalDateTime dataPedido;
 	
 	@Column
-	private String name;
+	private BigDecimal total;
 	
-	@Column(unique = true)
-	private String cpf;
-	
-	@Column(unique = true)
-	private String email;
-	
-	@Column
-	private Boolean active;
-
-	
-	public User() {
-		setDel(false);
-		setActive(true);
-	}
-	
-	public User(Integer id) {
-		this();
-		setId(id);
-	}
+	@OneToMany(mappedBy = "pedido")
+	private List<PedidoItem> itens;
 
 }

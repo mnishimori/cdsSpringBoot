@@ -9,12 +9,12 @@ public class UserDto {
 	
 	private Integer id;
 	
-	private Boolean del;
-	
 	private String name;
 	
 	private String cpf;
 	
 	private String email;
+	
+	private Integer userId;
 
 }
