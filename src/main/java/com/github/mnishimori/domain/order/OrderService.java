@@ -84,6 +84,8 @@ public class OrderService extends BaseEntityService<Order>{
 			i.setOrder(orderSaved);
 			orderItemService.save(i);
 		});
+		
+		orderSaved.setItems(order.getItems());
 	}
 
 
