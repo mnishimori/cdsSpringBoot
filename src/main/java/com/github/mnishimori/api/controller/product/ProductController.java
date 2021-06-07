@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.mnishimori.api.assembler.ProductDtoAssembler;
+import com.github.mnishimori.api.dto.product.ProductDto;
 import com.github.mnishimori.domain.product.Product;
 import com.github.mnishimori.domain.product.ProductService;
 
@@ -26,41 +28,50 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	
+	@Autowired
+	private ProductDtoAssembler assembler;
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Product salvar(@RequestBody @Valid Product produto) {
+	public ProductDto salvar(@RequestBody @Valid ProductDto productDto) {
 		
-		return service.save(produto);
+		Product product = this.assembler.toDomainObjectFromDto(productDto);
+		
+		return this.assembler.toDtoFromModel(this.service.save(product));
 	}
 	
 	
 	@GetMapping
-	public List<Product> listar() {
+	public List<ProductDto> listar() {
 		
-		return service.list();
+		return this.assembler.toCollectionDtoFromModel(this.service.list());
 	}
 	
 	
 	@GetMapping("/{id}")
-	public Product buscarProdutoPorId(@PathVariable Integer id) {
+	public ProductDto buscarProdutoPorId(@PathVariable Integer id) {
 		
-		return service.findById(id);
+		return this.assembler.toDtoFromModel(this.service.findById(id));
 	}
 	
 	
 	@GetMapping("/pesquisa")
-	public List<Product> pesquisar(Product produto) {
+	public List<ProductDto> pesquisar(ProductDto productDto) {
 		
-		return service.search(produto);
+		Product product = this.assembler.toDomainObjectFromDto(productDto);
+		
+		return this.assembler.toCollectionDtoFromModel(this.service.search(product));
 	}
 	
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Product atualizar(@PathVariable Integer id, @RequestBody @Valid Product produto) {
+	public ProductDto atualizar(@PathVariable Integer id, @RequestBody @Valid ProductDto productDto) {
 		
-		return service.update(id, produto);
+		Product product = this.assembler.toDomainObjectFromDto(productDto);
+		
+		return this.assembler.toDtoFromModel(this.service.update(id, product));
 	}
 	
 	
@@ -68,6 +79,6 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletar(@PathVariable Integer id) {
 		
-		service.delete(id);
+		this.service.delete(id);
 	}
 }

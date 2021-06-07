@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "pedido")
 public class Order extends BaseEntity {
 	
+	@NotBlank(message = "Informe o cliente")
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Customer customer;
