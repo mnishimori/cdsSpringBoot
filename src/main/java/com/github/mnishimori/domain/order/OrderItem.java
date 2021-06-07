@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -33,7 +32,7 @@ public class OrderItem extends BaseEntity {
 	@JoinColumn(name = "pedido_id")
 	private Order order;
 	
-	@NotBlank(message = "Informe o produto")
+	@NotNull(message = "Informe o produto")
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	private Product product;

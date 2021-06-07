@@ -28,8 +28,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "produto")
 public class Product extends BaseEntity {
 	
-	@Length(min = 2, max = 500, message = "A descrição do produto deve possuir no mínimo 2 caracteres e no máximo 500")
 	@NotBlank(message = "Informe o nome do produto")
+	@Length(min = 2, max = 500, message = "A descrição do produto deve possuir no mínimo 2 caracteres e no máximo 500")
 	@Column
 	private String description;
 	

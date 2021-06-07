@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.UnexpectedTypeException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.github.mnishimori.domain.exception.AlreadyRegisteredEntityException;
 import com.github.mnishimori.domain.exception.BusinessException;
-import com.github.mnishimori.domain.exception.UnregisteredException;
+import com.github.mnishimori.domain.exception.UnregisteredEntityException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler {
@@ -125,13 +126,24 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	}
 
 	
-	@ExceptionHandler(UnregisteredException.class)
-	public ResponseEntity<?> catchEntityNotFoundException(UnregisteredException e, 
+	@ExceptionHandler(UnregisteredEntityException.class)
+	public ResponseEntity<?> catchEntityNotFoundException(UnregisteredEntityException e, 
 			WebRequest request){
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		
 		return handleExceptionInternal(e, e.getMessage(), new HttpHeaders(), 
+				status, request);
+	}
+	
+
+	@ExceptionHandler({ UnexpectedTypeException.class })
+	public ResponseEntity<Object> handleConstraintViolationException(UnexpectedTypeException ex,
+			WebRequest request) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), 
 				status, request);
 	}
 

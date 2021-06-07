@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.mnishimori.api.assembler.OrderDtoAssembler;
+import com.github.mnishimori.api.dto.order.OrderDto;
 import com.github.mnishimori.domain.order.Order;
 import com.github.mnishimori.domain.order.OrderService;
 
@@ -18,12 +20,17 @@ public class OrderController {
 	@Autowired
 	private OrderService service;
 	
+	@Autowired
+	private OrderDtoAssembler assembler;
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Order salvar(@RequestBody Order pedido) {
+	public OrderDto salvar(@RequestBody OrderDto orderDto) {
 		
-		return service.salvar(pedido);
+		Order order = this.assembler.toDomainObjectFromDto(orderDto);
+		
+		return this.assembler.toDtoFromModel(this.service.save(order));
 	}
 
 }

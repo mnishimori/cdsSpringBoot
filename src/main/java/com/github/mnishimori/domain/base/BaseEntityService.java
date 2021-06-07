@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.mnishimori.domain.exception.BusinessException;
-import com.github.mnishimori.domain.exception.UnregisteredException;
+import com.github.mnishimori.domain.exception.UnregisteredEntityException;
 import com.github.mnishimori.domain.user.UserService;
 
 public abstract class BaseEntityService<T> {
@@ -39,8 +39,8 @@ public abstract class BaseEntityService<T> {
 	
 	public T findById(Integer id) {
 		
-		return repository.findById(id)
-				.orElseThrow(() -> new UnregisteredException("Registro não encontrado"));
+		return repository.findById(id).orElseThrow(
+				() -> new UnregisteredEntityException("Registro " + getClass().getName() + " não encontrado com ID " + id));
 	}
 	
 	
@@ -76,7 +76,7 @@ public abstract class BaseEntityService<T> {
 	}
 	
 	
-	private T prepareToSave(T entity) {
+	protected T prepareToSave(T entity) {
 		
 		this.validateFields(entity);
 		
@@ -102,17 +102,17 @@ public abstract class BaseEntityService<T> {
 	}
 
 
-	private void identifyRegistrationUser(BaseEntity entityToPrepare, T entityToSave) {
+	protected void identifyRegistrationUser(BaseEntity entityToPrepare, T entityToSave) {
 		
 		((BaseEntity) entityToSave).setRegistrationUser(
 				userService.findUserByEmail(entityToPrepare.getRegistrationUser().getEmail()));
 	}
 	
 	
-	private void validateFields(T entity) {
+	protected void validateFields(T entity) {
 		
 		if (entity == null) {
-			throw new BusinessException("Entidade " + getClass() + " inválida!");
+			throw new BusinessException("Entidade " + getClass().getName() + " inválida!");
 		} else {
 			if (((BaseEntity) entity).isNewEntity()) {
 				if (((BaseEntity) entity).getRegistrationUser() == null) {
@@ -125,5 +125,25 @@ public abstract class BaseEntityService<T> {
 				}
 			}
 		}
+	}
+
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+
+	public JpaRepository<T, Integer> getRepository() {
+		return repository;
+	}
+
+
+	public void setRepository(JpaRepository<T, Integer> repository) {
+		this.repository = repository;
 	}
 }

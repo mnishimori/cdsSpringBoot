@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.mnishimori.domain.exception.UnregisteredException;
+import com.github.mnishimori.domain.exception.UnregisteredEntityException;
 
 @Service
 public class UserService {
@@ -31,7 +31,7 @@ public class UserService {
 	public User findUserByEmail(String email) {
 		
 		return repository.findByemail(email)
-				.orElseThrow(() -> new UnregisteredException("Usuário não cadastrado com o email " + email));
+				.orElseThrow(() -> new UnregisteredEntityException("Usuário não cadastrado com o email " + email));
 	}
 
 }

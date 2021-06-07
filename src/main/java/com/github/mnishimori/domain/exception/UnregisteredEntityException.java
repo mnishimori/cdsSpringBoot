@@ -1,18 +1,18 @@
 package com.github.mnishimori.domain.exception;
 
-public class UnregisteredException extends RuntimeException {
+public class UnregisteredEntityException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public UnregisteredException(String message) {
+	public UnregisteredEntityException(String message) {
 		super(message);
 	}
 	
-	public UnregisteredException(String entidade, Long id) {
+	public UnregisteredEntityException(String entidade, Long id) {
 		super(String.format("Não existe %s com o código %d", entidade, id));
 	}
 
-	public UnregisteredException(String entidade, Integer id) {
+	public UnregisteredEntityException(String entidade, Integer id) {
 		super(String.format("Não existe %s com o código %d", entidade, id));
 	}
 

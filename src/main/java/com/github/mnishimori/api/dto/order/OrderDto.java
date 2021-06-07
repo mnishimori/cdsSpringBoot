@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import com.github.mnishimori.api.dto.customer.CustomerDto;
+import com.github.mnishimori.api.dto.user.UserDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,11 +15,16 @@ import lombok.Setter;
 @Setter
 public class OrderDto {
 	
+	private Integer id;
+	
 	@NotBlank(message = "Informe o cliente")
-	private CustomerDto customer;
+	private Integer customerId;
 	
 	private BigDecimal total;
 	
-	private List<OrderItemDto> itens;
+	private UserDto registrationUser;
+	
+	@NotNull(message = "Informe o produto")
+	private List<OrderItemDto> items;
 
 }

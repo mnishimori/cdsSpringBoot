@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "pedido")
 public class Order extends BaseEntity {
 	
-	@NotBlank(message = "Informe o cliente")
+	@NotNull(message = "Informe o cliente")
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Customer customer;
@@ -44,6 +44,7 @@ public class Order extends BaseEntity {
 	@Column
 	private BigDecimal total;
 	
+	@NotNull(message = "Informe o produto")
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> items;
 
