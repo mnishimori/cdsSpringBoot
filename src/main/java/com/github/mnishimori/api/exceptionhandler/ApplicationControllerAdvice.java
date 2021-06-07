@@ -137,6 +137,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 	}
 	
 
+	// ----------------------------------
 	@ExceptionHandler({ UnexpectedTypeException.class })
 	public ResponseEntity<Object> handleConstraintViolationException(UnexpectedTypeException ex,
 			WebRequest request) {
@@ -162,6 +163,7 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 		return handleExceptionInternal(ex, errors.stream().collect(Collectors.joining(", ")), 
 				new HttpHeaders(), status, request);
 	}
+	// ----------------------------------
 	
 	
 	public ResponseEntity<Object> handleValidationInternal(Exception ex, BindingResult bindingResult,
