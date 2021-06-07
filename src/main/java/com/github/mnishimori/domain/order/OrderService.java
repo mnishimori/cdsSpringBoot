@@ -32,14 +32,16 @@ public class OrderService extends BaseEntityService<Order>{
 		
 		this.validateOrder(order);
 		
+		this.setInitialValues(order);
+		
 		Order orderSaved = super.save(super.prepareToSave(order));
 		
 		this.saveOrderItems(order, orderSaved);
 
 		return orderSaved;
 	}
-	
-	
+
+
 	@Override
 	public Order findById(Integer id) {
 		
@@ -53,9 +55,33 @@ public class OrderService extends BaseEntityService<Order>{
 	}
 	
 	
+	public Order findByIdWithItems(Integer id) {
+		
+		return ((OrderRepository) super.getRepository()).findByIdFetchItems(id)
+				.orElseThrow(() -> new UnregisteredEntityException("Pedido não encontrado com ID " + id));
+	}
+	
+	
 	public List<Order> findByCustomer(Integer customerId) {
 		
 		return ((OrderRepository) super.getRepository()).findByDelAndCustomerId(false, customerId);
+	}
+	
+	
+	@Transactional
+	public void updateOrderStatus(Integer orderId, String status) {
+		
+		Order orderToUpdate = super.findById(orderId);
+		
+		orderToUpdate.setOrderStatus(OrderStatus.valueOf(status));
+		
+		super.getRepository().save(orderToUpdate);
+	}
+	
+	
+	private void setInitialValues(Order order) {
+		
+		order.setOrderStatus(OrderStatus.REALIZADO);
 	}
 	
 

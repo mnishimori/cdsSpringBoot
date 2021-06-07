@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.github.mnishimori.domain.base.BaseEntity;
 import com.github.mnishimori.domain.order.Order;
+import com.github.mnishimori.domain.validation.RegistrationUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@RegistrationUser
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder
@@ -29,12 +31,12 @@ import lombok.NoArgsConstructor;
 @Table(name = "cliente")
 public class Customer extends BaseEntity {
 	
-	@Length(min = 2, max = 500, message = "O nome deve possuir no mínimo dois caracteres e no máximo 500")
 	@NotBlank(message = "Informe o nome do cliente")
+	@Length(min = 2, max = 500, message = "O nome deve possuir no mínimo dois caracteres e no máximo 500")
 	@Column
 	private String name;
 	
-	@CPF
+	@CPF(message = "Informe um CPF válido")
 	@NotBlank(message = "Informe o CPF")
 	@Column
 	private String cpf;

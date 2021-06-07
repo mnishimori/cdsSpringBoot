@@ -1,7 +1,12 @@
 package com.github.mnishimori.api.controller.order;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.mnishimori.api.assembler.OrderDtoAssembler;
 import com.github.mnishimori.api.dto.order.OrderDto;
+import com.github.mnishimori.api.dto.order.OrderStatusDto;
 import com.github.mnishimori.domain.order.Order;
 import com.github.mnishimori.domain.order.OrderService;
 
@@ -26,11 +32,26 @@ public class OrderController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public OrderDto salvar(@RequestBody OrderDto orderDto) {
+	public OrderDto salvar(@RequestBody @Valid OrderDto orderDto) {
 		
 		Order order = this.assembler.toDomainObjectFromDto(orderDto);
 		
 		return this.assembler.toDtoFromModel(this.service.save(order));
+	}
+	
+	
+	@GetMapping("/{id}")
+	public OrderDto findOrderByIdWithItems(@PathVariable Integer id) {
+		
+		return this.assembler.toDtoFromModel(this.service.findByIdWithItems(id));
+	}
+	
+	
+	@PatchMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateStatus(@RequestBody @Valid OrderStatusDto orderStatusDto) {
+		
+		this.service.updateOrderStatus(orderStatusDto.getId(), orderStatusDto.getNewState());
 	}
 
 }

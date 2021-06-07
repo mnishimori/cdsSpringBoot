@@ -12,6 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 import org.hibernate.validator.constraints.Length;
 
 import com.github.mnishimori.domain.base.BaseEntity;
+import com.github.mnishimori.domain.validation.RegistrationUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@RegistrationUser
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder

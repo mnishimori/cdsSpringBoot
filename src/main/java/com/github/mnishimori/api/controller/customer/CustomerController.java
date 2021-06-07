@@ -43,31 +43,33 @@ public class CustomerController {
 	
 	
 	@GetMapping
-	public List<Customer> list() {
+	public List<CustomerDto> list() {
 		
-		return this.customerService.list();
+		return this.assembler.toCollectionDtoFromModel(this.customerService.list());
 	}
 	
 	
 	@GetMapping("/{id}")
-	public Customer findCustomerById(@PathVariable Integer id) {
+	public CustomerDto findCustomerById(@PathVariable Integer id) {
 		
-		return this.customerService.findById(id);
+		return this.assembler.toDtoFromModel(this.customerService.findById(id));
 	}
 	
 	
 	@GetMapping("/pesquisa")
-	public List<Customer> searchCustomer(Customer customer) {
+	public List<CustomerDto> searchCustomer(Customer customer) {
 		
-		return this.customerService.search(customer);
+		return this.assembler.toCollectionDtoFromModel(this.customerService.search(customer));
 	}
 	
 	
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Customer update(@PathVariable Integer id, @RequestBody @Valid Customer customer) {
+	public CustomerDto update(@PathVariable Integer id, @RequestBody @Valid CustomerDto customerDto) {
 		
-		return this.customerService.update(id, customer);
+		Customer customer = this.assembler.toDomainObjectFromDto(customerDto);
+		
+		return this.assembler.toDtoFromModel(this.customerService.update(id, customer));
 	}
 	
 	

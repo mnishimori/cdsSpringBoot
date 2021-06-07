@@ -2,28 +2,26 @@ package com.github.mnishimori.api.dto.order;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-import com.github.mnishimori.api.dto.user.UserDto;
+import com.github.mnishimori.api.dto.base.BaseEntityDto;
+import com.github.mnishimori.api.dto.product.ProductDto;
+import com.github.mnishimori.api.dto.validation.RegistrationUserDto;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@RegistrationUserDto
 @Getter
 @Setter
-public class OrderItemDto {
+public class OrderItemDto extends BaseEntityDto {
 	
-	private Integer id;
-	
-	@NotBlank(message = "Informe o produto")
-	private Integer productId;
+	@NotNull(message = "Informe o produto")
+	private ProductDto product;
 			
 	@NotNull(message = "Informe a quantidade")
 	@Positive(message = "A quantidade deve ser maior do que zero")
 	private BigDecimal quantity;
-	
-	private UserDto registrationUser;
 
 }
