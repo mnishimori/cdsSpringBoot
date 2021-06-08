@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.github.mnishimori.domain.user.User;
+import com.github.mnishimori.domain.user.UserSystem;
 
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public class BaseEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
-	private User registrationUser;
+	private UserSystem registrationUser;
 	
 	@CreationTimestamp
 	@Column(name = "dt_cadastro")

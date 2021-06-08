@@ -14,7 +14,5 @@ public class UserDto {
 	private String cpf;
 	
 	private String email;
-	
-	private UserDto registrationUser;
 
 }
