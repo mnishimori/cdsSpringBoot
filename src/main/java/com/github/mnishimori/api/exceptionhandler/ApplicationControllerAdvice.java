@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.github.mnishimori.domain.exception.AlreadyRegisteredEntityException;
 import com.github.mnishimori.domain.exception.BusinessException;
+import com.github.mnishimori.domain.exception.InvalidPasswordException;
 import com.github.mnishimori.domain.exception.UnregisteredEntityException;
 
 @RestControllerAdvice
@@ -162,6 +164,17 @@ public class ApplicationControllerAdvice extends ResponseEntityExceptionHandler 
 		
 		return handleExceptionInternal(ex, errors.stream().collect(Collectors.joining(", ")), 
 				new HttpHeaders(), status, request);
+	}
+	
+	
+	@ExceptionHandler({ UsernameNotFoundException.class, InvalidPasswordException.class })
+	public ResponseEntity<Object> handleConstraintViolationException(UsernameNotFoundException ex,
+			WebRequest request) {
+		
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), 
+				status, request);
 	}
 	// ----------------------------------
 	
