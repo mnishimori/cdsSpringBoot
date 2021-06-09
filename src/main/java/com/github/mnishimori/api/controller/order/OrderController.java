@@ -21,7 +21,7 @@ import com.github.mnishimori.domain.order.OrderService;
 
 @RestController
 @RequestMapping("/vendas/pedidos")
-public class OrderController {
+public class OrderController implements IOrderController {
 	
 	@Autowired
 	private OrderService service;

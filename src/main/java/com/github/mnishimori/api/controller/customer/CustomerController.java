@@ -23,7 +23,7 @@ import com.github.mnishimori.domain.customer.CustomerService;
 
 @RestController
 @RequestMapping("/vendas/clientes")
-public class CustomerController {
+public class CustomerController implements ICustomerController {
 	
 	@Autowired
 	private CustomerService customerService;

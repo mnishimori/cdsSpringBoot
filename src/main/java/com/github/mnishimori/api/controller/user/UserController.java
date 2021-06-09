@@ -26,7 +26,7 @@ import com.github.mnishimori.security.jwt.JwtService;
 
 @RestController
 @RequestMapping("/vendas/usuarios")
-public class UserController {
+public class UserController implements IUserController {
 	
 	@Autowired
 	private UserSecurityService userSecurityService;

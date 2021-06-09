@@ -8,12 +8,16 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.github.mnishimori.api.dto.base.BaseEntityDto;
 import com.github.mnishimori.api.dto.validation.RegistrationUserDto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @RegistrationUserDto
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerDto extends BaseEntityDto {
 	
 	@Length(min = 2, max = 500, message = "O nome deve possuir no mínimo 2 caracteres e no máximo 500")

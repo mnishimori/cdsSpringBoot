@@ -23,7 +23,7 @@ import com.github.mnishimori.domain.product.ProductService;
 
 @RestController
 @RequestMapping("/vendas/produtos")
-public class ProductController {
+public class ProductController implements IProductController {
 	
 	@Autowired
 	private ProductService service;

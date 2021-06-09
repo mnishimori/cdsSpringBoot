@@ -4,12 +4,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.github.mnishimori.domain.user.UserSystem;
@@ -21,8 +18,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtService {
 	
-	@Autowired
-	private Environment env;
+	//@Autowired
+	//private Environment env;
 	
 	// @Value("${security.jwt.expiration}")
 	@Autowired

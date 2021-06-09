@@ -34,7 +34,7 @@ public class OrderService extends BaseEntityService<Order>{
 		
 		this.setInitialValues(order);
 		
-		Order orderSaved = super.save(super.prepareToSave(order));
+		Order orderSaved = super.save(order);
 		
 		this.saveOrderItems(order, orderSaved);
 
