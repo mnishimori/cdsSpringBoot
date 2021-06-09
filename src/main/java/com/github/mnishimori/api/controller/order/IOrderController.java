@@ -14,7 +14,7 @@ public interface IOrderController {
             @ApiResponse(code = 201, message = "Order saved"),
             @ApiResponse(code = 400, message = "Validation error")
     })
-    public OrderDto salvar(OrderDto orderDto);
+    public OrderDto save(OrderDto orderDto);
 	
     @ApiOperation("Get order details")
     @ApiResponses({

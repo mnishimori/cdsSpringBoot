@@ -3,7 +3,6 @@ package com.github.mnishimori.api.controller.customer;
 import java.util.List;
 
 import com.github.mnishimori.api.dto.customer.CustomerDto;
-import com.github.mnishimori.domain.customer.Customer;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,11 +30,11 @@ public interface ICustomerController {
         @ApiResponse(code = 200, message = "Customer found"),
         @ApiResponse(code = 404, message = "Customer not found")
     })
-	public CustomerDto findCustomerById(@ApiParam("Customer Id") Integer id );
+	public CustomerDto findById(@ApiParam("Customer Id") Integer id );
 	
 	
 	@ApiOperation("Get customer list searching by any property")
-	public List<CustomerDto> searchCustomer(Customer customer);
+	public List<CustomerDto> search(CustomerDto customerDto);
 	
 	
     @ApiOperation("Update customer")
