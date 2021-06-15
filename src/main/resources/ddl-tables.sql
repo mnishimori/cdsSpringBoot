@@ -1,3 +1,4 @@
+-- para o spring executar este script, o nome do arquivo deve ser data.sql
 create table cliente (
 	id integer primary key auto_increment,
 	nome varchar(100) not null,
